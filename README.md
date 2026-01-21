@@ -25,11 +25,11 @@ npm run build
 
 ## Services Covered
 
-1. **Azure Storage Account** 📦 - Object storage, blob, file, queue services
-2. **Azure Virtual Machines** 🖥️ - IaaS computing with full OS control  
-3. **Azure Database for MySQL** 🗄️ - Managed MySQL database service
-4. **Azure Cache for Redis** ⚡ - In-memory caching and data store
-5. **Azure Application Gateway** 🌐 - Layer 7 load balancer with WAF
+1. **Azure Storage Account**  - Object storage, blob, file, queue services
+2. **Azure Virtual Machines**  - IaaS computing with full OS control  
+3. **Azure Database for MySQL**  - Managed MySQL database service
+4. **Azure Cache for Redis**  - In-memory caching and data store
+5. **Azure Application Gateway**  - Layer 7 load balancer with WAF
 
 ## Content Structure
 
