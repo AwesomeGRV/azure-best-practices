@@ -10,6 +10,7 @@ export interface FailureScenario {
   whyItHappens: string;
   symptoms: string;
   impact: string;
+  realExample: string;
   prevention: string[];
 }
 

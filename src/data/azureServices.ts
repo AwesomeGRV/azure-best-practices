@@ -73,11 +73,25 @@ export const azureServices: AzureService[] = [
         whyItHappens: 'Data stored in Hot tier instead of Cool/Cold/Archive, excessive egress costs',
         symptoms: 'Unexpected high monthly bills, rapid cost increase',
         impact: 'Budget overruns, financial impact on business',
+        realExample: 'A company stored 100TB of infrequently accessed data in the Hot tier, resulting in $10,000 monthly bills and a 50% increase in storage costs',
         prevention: [
           'Implement lifecycle management policies',
           'Regular tier reviews and optimizations',
           'Monitor egress traffic patterns',
           'Set up cost alerts and budgets'
+        ]
+      },
+      {
+        scenario: 'Blob container exhaustion',
+        whyItHappens: 'Exceeding storage limits, poor lifecycle management, rapid data growth',
+        symptoms: 'Upload failures, storage errors, performance degradation',
+        impact: 'Application downtime, data loss, user impact',
+        realExample: 'A media streaming company exceeded their 5TB blob container limit during a viral content event, causing 6 hours of upload failures and $50K in lost revenue',
+        prevention: [
+          'Implement lifecycle management policies',
+          'Monitor storage utilization',
+          'Use appropriate storage tiers',
+          'Set up automated cleanup'
         ]
       }
     ],
@@ -180,6 +194,7 @@ export const azureServices: AzureService[] = [
         whyItHappens: 'Oversubscribed resources, storage bottlenecks, network congestion',
         symptoms: 'Slow response times, application timeouts, high CPU usage',
         impact: 'Poor user experience, business disruption',
+        realExample: 'An e-commerce site experienced VM CPU spikes to 95% during a flash sale, causing page load times to increase from 2 seconds to 45 seconds and 70% cart abandonment',
         prevention: [
           'Monitor performance metrics regularly',
           'Implement auto-scaling policies',
@@ -287,6 +302,7 @@ export const azureServices: AzureService[] = [
         whyItHappens: 'Poor query optimization, insufficient resources, connection leaks',
         symptoms: 'Slow query responses, application timeouts, high CPU usage',
         impact: 'Poor user experience, business disruption',
+        realExample: 'A SaaS application had connection pool exhaustion during peak hours, causing 500 errors for 3,000 users and requiring emergency database restart',
         prevention: [
           'Regular query performance analysis',
           'Implement connection pooling',
@@ -392,13 +408,14 @@ export const azureServices: AzureService[] = [
       {
         scenario: 'Cache memory exhaustion',
         whyItHappens: 'Insufficient memory allocation, memory leaks, large data objects',
-        symptoms: 'Cache evictions, performance degradation, out-of-memory errors',
-        impact: 'Increased database load, poor application performance',
+        symptoms: 'Cache misses, performance degradation, out-of-memory errors',
+        impact: 'Database overload, poor performance, user experience issues',
+        realExample: 'A gaming platform\'s Redis cache reached 95% memory usage, causing cache eviction spikes and database query increases from 1K to 50K queries per second',
         prevention: [
-          'Monitor memory usage regularly',
-          'Implement appropriate eviction policies',
-          'Optimize data structures and serialization',
-          'Scale cache size as needed'
+          'Monitor memory usage',
+          'Implement proper eviction policies',
+          'Use appropriate cache sizing',
+          'Implement cache warming strategies'
         ]
       }
     ],
@@ -501,6 +518,7 @@ export const azureServices: AzureService[] = [
         whyItHappens: 'Uneven traffic distribution, insufficient health checks, backend capacity issues',
         symptoms: 'High response times, HTTP 503 errors, poor user experience',
         impact: 'Application downtime, lost revenue',
+        realExample: 'A banking portal\'s Application Gateway backend pool was exhausted due to web server memory leaks, causing 2 hours of 503 errors affecting 25,000 customers',
         prevention: [
           'Configure proper health probes',
           'Implement autoscaling policies',
@@ -608,6 +626,7 @@ export const azureServices: AzureService[] = [
         whyItHappens: 'Producer overload, consumer failure, processing bottlenecks',
         symptoms: 'Queue depth growing, message delays, system overload',
         impact: 'System degradation, message processing delays',
+        realExample: 'In a retail application, during Black Friday sales, the order processing queue exceeded 100,000 messages, causing 4-hour delays in order confirmations and customer complaints',
         prevention: [
           'Monitor queue depths and set alerts',
           'Implement auto-scaling for consumers',
@@ -715,6 +734,7 @@ export const azureServices: AzureService[] = [
         whyItHappens: 'Inefficient code, memory leaks, large payloads',
         symptoms: 'Function failures, timeouts, out-of-memory errors',
         impact: 'Processing failures, data loss, poor user experience',
+        realExample: 'A data processing Function timed out when processing 100MB files, causing a 6-hour backlog of 15,000 unprocessed files and missed SLA deadlines',
         prevention: [
           'Optimize code for performance and memory',
           'Implement proper error handling and retries',
@@ -822,6 +842,7 @@ export const azureServices: AzureService[] = [
         whyItHappens: 'Insufficient node resources, pod sprawl, memory leaks',
         symptoms: 'Pod failures, scheduling issues, poor performance',
         impact: 'Application downtime, poor user experience',
+        realExample: 'An AKS cluster with 3 nodes reached 85% CPU utilization, causing pods to be OOMKilled and a microservices application to lose 40% of its functionality',
         prevention: [
           'Implement cluster autoscaling',
           'Monitor resource utilization',
@@ -929,6 +950,7 @@ export const azureServices: AzureService[] = [
         whyItHappens: 'Resource constraints, inefficient code, database bottlenecks',
         symptoms: 'Slow response times, HTTP errors, poor user experience',
         impact: 'User dissatisfaction, business impact',
+        realExample: 'A corporate web app\'s App Service ran out of memory during month-end reporting, causing response times to increase from 200ms to 8 seconds and preventing 500 employees from meeting deadlines',
         prevention: [
           'Monitor performance metrics',
           'Implement auto-scaling',
