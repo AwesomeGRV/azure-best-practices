@@ -535,5 +535,433 @@ export const azureServices: AzureService[] = [
         setup: ['Create Application Gateway with Standard_v2 tier', 'Enable basic monitoring']
       }
     ]
+  },
+  {
+    id: 'service-bus',
+    name: 'Azure Service Bus',
+    icon: '📨',
+    overview: {
+      whatItIs: 'Azure Service Bus is a fully managed enterprise message broker with message queues and publish-subscribe topics. It provides reliable message queuing and durable publish-subscribe capabilities.',
+      whyUsed: 'Enables decoupled communication between applications and services, providing reliable message delivery, ordering, and transactional support.',
+      useCases: [
+        'Enterprise messaging and integration',
+        'Decoupled microservices communication',
+        'Workload distribution and queuing',
+        'Event-driven architectures',
+        'Reliable message delivery guarantees'
+      ]
+    },
+    architecture: {
+      whenToUse: [
+        'When you need reliable message delivery',
+        'For enterprise messaging patterns',
+        'When implementing publish-subscribe patterns',
+        'For decoupled application communication',
+        'When you need transactional messaging'
+      ],
+      whenNotToUse: [
+        'For simple pub/sub without ordering (use Event Grid instead)',
+        'For high-throughput streaming (use Event Hubs instead)',
+        'For simple HTTP communication',
+        'When you need real-time low-latency messaging'
+      ],
+      idealArchitectures: [
+        'Single Region: Standard/Premium tier with namespaces',
+        'Multi-Region: Geo-redundant namespaces',
+        'High Availability: Premium tier with partitioning',
+        'Disaster Recovery: Pair namespaces across regions'
+      ]
+    },
+    bestPractices: {
+      costOptimization: [
+        'Choose appropriate tier (Standard vs Premium)',
+        'Optimize message size and batching',
+        'Use auto-forwarding to reduce operations',
+        'Implement proper message expiration',
+        'Monitor and adjust throughput units'
+      ],
+      security: [
+        'Enable Azure AD authentication',
+        'Use managed identities for application access',
+        'Implement encryption at rest and in transit',
+        'Use shared access policies with least privilege',
+        'Enable IP filtering and firewall rules'
+      ],
+      performanceReliability: [
+        'Use Premium tier for production workloads',
+        'Implement proper partitioning strategies',
+        'Use message batching for efficiency',
+        'Configure appropriate session handling',
+        'Implement dead-lettering for failed messages'
+      ],
+      operationalExcellence: [
+        'Enable diagnostic logging and monitoring',
+        'Use Azure Resource Manager templates',
+        'Implement automated testing of message flows',
+        'Set up alerts for queue depths and errors',
+        'Implement proper message schema versioning'
+      ]
+    },
+    failureScenarios: [
+      {
+        scenario: 'Message queue exhaustion',
+        whyItHappens: 'Producer overload, consumer failure, processing bottlenecks',
+        symptoms: 'Queue depth growing, message delays, system overload',
+        impact: 'System degradation, message processing delays',
+        prevention: [
+          'Monitor queue depths and set alerts',
+          'Implement auto-scaling for consumers',
+          'Use dead-lettering for problematic messages',
+          'Implement circuit breakers and throttling'
+        ]
+      }
+    ],
+    antiPatterns: [
+      {
+        pattern: 'Using Service Bus as a database',
+        description: 'Storing business data in messages instead of using proper databases',
+        consequences: 'Performance issues, data inconsistency, high costs'
+      }
+    ],
+    monitoringAlerts: {
+      metrics: ['Active Messages', 'Dead-lettered Messages', 'Incoming Messages', 'Outgoing Messages'],
+      logs: ['Operation logs', 'Error logs', 'Audit logs'],
+      alertThresholds: ['Queue depth > 1000', 'Dead-letter rate > 1%', 'Error rate > 0.5%'],
+      azureServices: ['Azure Monitor', 'Log Analytics', 'Service Bus Explorer']
+    },
+    checklist: {
+      security: ['✓ Azure AD authentication enabled', '✓ Encryption configured'],
+      cost: ['✓ Appropriate tier selected', '✓ Message size optimized'],
+      performance: ['✓ Premium tier for production', '✓ Partitioning configured'],
+      reliability: ['✓ Dead-lettering configured', '✓ Monitoring enabled']
+    },
+    maturityLevels: [
+      {
+        level: 'Basic (Beginner)',
+        description: 'Basic Service Bus namespace with queues',
+        setup: ['Create Service Bus namespace', 'Configure basic queues and topics']
+      }
+    ]
+  },
+  {
+    id: 'azure-functions',
+    name: 'Azure Functions',
+    icon: '⚡',
+    overview: {
+      whatItIs: 'Azure Functions is a serverless compute service that enables you to run event-triggered code without having to explicitly provision or manage infrastructure.',
+      whyUsed: 'Provides cost-effective, scalable compute for event-driven applications with automatic scaling and pay-per-use pricing.',
+      useCases: [
+        'Event processing and automation',
+        'API endpoints and webhooks',
+        'Data processing and transformation',
+        'Scheduled tasks and workflows',
+        'Integration and orchestration'
+      ]
+    },
+    architecture: {
+      whenToUse: [
+        'For event-driven architectures',
+        'When you need serverless compute',
+        'For sporadic or unpredictable workloads',
+        'When implementing microservices',
+        'For rapid development and deployment'
+      ],
+      whenNotToUse: [
+        'For long-running processes (>10 minutes)',
+        'When you need full OS control (use VMs instead)',
+        'For stateful applications requiring persistence',
+        'When you need consistent low latency'
+      ],
+      idealArchitectures: [
+        'Consumption Plan: Serverless with automatic scaling',
+        'Premium Plan: Pre-warmed instances for performance',
+        'App Service Plan: Dedicated resources for consistency',
+        'Durable Functions: Orchestration of complex workflows'
+      ]
+    },
+    bestPractices: {
+      costOptimization: [
+        'Use Consumption plan for sporadic workloads',
+        'Optimize function execution time',
+        'Implement proper error handling to reduce retries',
+        'Use async/await patterns for I/O operations',
+        'Monitor and optimize cold start performance'
+      ],
+      security: [
+        'Enable Azure AD authentication',
+        'Use managed identities for service connections',
+        'Implement proper input validation',
+        'Use Application Insights for security monitoring',
+        'Secure storage connections and secrets'
+      ],
+      performanceReliability: [
+        'Use Premium plan for consistent performance',
+        'Implement proper retry policies',
+        'Use durable functions for stateful workflows',
+        'Optimize memory usage and garbage collection',
+        'Implement proper logging and monitoring'
+      ],
+      operationalExcellence: [
+        'Use Infrastructure as Code (ARM templates/Bicep)',
+        'Implement automated testing and deployment',
+        'Use Application Insights for monitoring',
+        'Implement proper versioning and deployment slots',
+        'Use CI/CD pipelines for deployment'
+      ]
+    },
+    failureScenarios: [
+      {
+        scenario: 'Function timeout or memory exhaustion',
+        whyItHappens: 'Inefficient code, memory leaks, large payloads',
+        symptoms: 'Function failures, timeouts, out-of-memory errors',
+        impact: 'Processing failures, data loss, poor user experience',
+        prevention: [
+          'Optimize code for performance and memory',
+          'Implement proper error handling and retries',
+          'Use appropriate hosting plan and limits',
+          'Monitor function performance and metrics'
+        ]
+      }
+    ],
+    antiPatterns: [
+      {
+        pattern: 'Long-running functions',
+        description: 'Creating functions that run for extended periods',
+        consequences: 'Timeouts, high costs, reliability issues'
+      }
+    ],
+    monitoringAlerts: {
+      metrics: ['Function Execution Count', 'Execution Time', 'Memory Usage', 'Error Rate'],
+      logs: ['Function logs', 'Application Insights logs', 'Error logs'],
+      alertThresholds: ['Error rate > 5%', 'Execution time > 5 minutes', 'Memory usage > 80%'],
+      azureServices: ['Azure Monitor', 'Application Insights', 'Log Analytics']
+    },
+    checklist: {
+      security: ['✓ Azure AD authentication enabled', '✓ Managed identities configured'],
+      cost: ['✓ Appropriate hosting plan selected', '✓ Execution time optimized'],
+      performance: ['✓ Premium plan for production', '✓ Cold start optimization'],
+      reliability: ['✓ Retry policies configured', '✓ Monitoring enabled']
+    },
+    maturityLevels: [
+      {
+        level: 'Basic (Beginner)',
+        description: 'Basic function app with simple triggers',
+        setup: ['Create Function App', 'Configure basic triggers and bindings']
+      }
+    ]
+  },
+  {
+    id: 'azure-kubernetes-service',
+    name: 'Azure Kubernetes Service (AKS)',
+    icon: '☸️',
+    overview: {
+      whatItIs: 'Azure Kubernetes Service (AKS) is a managed container orchestration service that simplifies deploying, managing, and scaling containerized applications using Kubernetes.',
+      whyUsed: 'Provides enterprise-grade Kubernetes with automated upgrades, scaling, and security, reducing operational complexity while maintaining portability.',
+      useCases: [
+        'Microservices architectures',
+        'Containerized application deployment',
+        'Hybrid cloud scenarios',
+        'DevOps and CI/CD pipelines',
+        'Multi-cloud and edge computing'
+      ]
+    },
+    architecture: {
+      whenToUse: [
+        'For containerized applications',
+        'When you need orchestration capabilities',
+        'For microservices architectures',
+        'When you need Kubernetes expertise',
+        'For hybrid and multi-cloud deployments'
+      ],
+      whenNotToUse: [
+        'For simple container deployment (use Container Instances instead)',
+        'When you lack Kubernetes expertise',
+        'For single-container applications',
+        'When you need full control over Kubernetes infrastructure'
+      ],
+      idealArchitectures: [
+        'Single Cluster: Development and testing',
+        'Multi-Cluster: Production and staging separation',
+        'Multi-Region: Global applications with traffic routing',
+        'Hybrid: On-premises and cloud integration'
+      ]
+    },
+    bestPractices: {
+      costOptimization: [
+        'Use appropriate node sizes and VM types',
+        'Implement cluster autoscaling',
+        'Use spot instances for non-critical workloads',
+        'Optimize resource requests and limits',
+        'Regularly review and right-size clusters'
+      ],
+      security: [
+        'Enable Azure AD integration for RBAC',
+        'Use network policies and calico',
+        'Implement pod security policies',
+        'Use Azure Policy for governance',
+        'Enable container image scanning'
+      ],
+      performanceReliability: [
+        'Use availability zones for high availability',
+        'Implement proper resource limits and requests',
+        'Use horizontal pod autoscaling',
+        'Configure proper storage classes',
+        'Implement health checks and readiness probes'
+      ],
+      operationalExcellence: [
+        'Use GitOps for cluster management',
+        'Implement automated CI/CD pipelines',
+        'Use Azure Monitor for container insights',
+        'Implement proper logging and monitoring',
+        'Use infrastructure as code (Terraform/Bicep)'
+      ]
+    },
+    failureScenarios: [
+      {
+        scenario: 'Cluster resource exhaustion',
+        whyItHappens: 'Insufficient node resources, pod sprawl, memory leaks',
+        symptoms: 'Pod failures, scheduling issues, poor performance',
+        impact: 'Application downtime, poor user experience',
+        prevention: [
+          'Implement cluster autoscaling',
+          'Monitor resource utilization',
+          'Set appropriate resource limits',
+          'Regular cluster health checks'
+        ]
+      }
+    ],
+    antiPatterns: [
+      {
+        pattern: 'Over-provisioning cluster resources',
+        description: 'Creating clusters with excessive capacity',
+        consequences: 'High costs, wasted resources'
+      }
+    ],
+    monitoringAlerts: {
+      metrics: ['Node CPU/Memory', 'Pod Status', 'Cluster Health', 'Network Traffic'],
+      logs: ['Kubernetes logs', 'Container logs', 'Audit logs'],
+      alertThresholds: ['Node CPU > 80%', 'Pod restart rate > 10%', 'Failed pods > 5%'],
+      azureServices: ['Azure Monitor', 'Container Insights', 'Log Analytics']
+    },
+    checklist: {
+      security: ['✓ Azure AD RBAC enabled', '✓ Network policies configured'],
+      cost: ['✓ Cluster autoscaling enabled', '✓ Spot instances considered'],
+      performance: ['✓ Resource limits set', '✓ HPA configured'],
+      reliability: ['✓ Availability zones used', '✓ Health checks configured']
+    },
+    maturityLevels: [
+      {
+        level: 'Basic (Beginner)',
+        description: 'Basic AKS cluster with default configuration',
+        setup: ['Create AKS cluster', 'Deploy basic applications']
+      }
+    ]
+  },
+  {
+    id: 'app-service',
+    name: 'Azure App Service',
+    icon: '🌍',
+    overview: {
+      whatItIs: 'Azure App Service is a fully managed platform-as-a-service (PaaS) for building, deploying, and scaling web applications. It supports multiple languages and frameworks.',
+      whyUsed: 'Provides automated infrastructure management, built-in security, and easy scaling without managing servers, enabling rapid development and deployment.',
+      useCases: [
+        'Web applications and APIs',
+        'Mobile app backends',
+        'Business applications',
+        'Content management systems',
+        'Progressive Web Apps (PWAs)'
+      ]
+    },
+    architecture: {
+      whenToUse: [
+        'For web applications and APIs',
+        'When you want platform-managed infrastructure',
+        'For multi-language applications',
+        'When you need easy scaling and deployment',
+        'For DevOps and CI/CD integration'
+      ],
+      whenNotToUse: [
+        'When you need full OS control (use VMs instead)',
+        'For container orchestration (use AKS instead)',
+        'For simple static sites (use Static Web Apps instead)',
+        'When you need custom kernel-level modifications'
+      ],
+      idealArchitectures: [
+        'Single App Service: Basic web application',
+        'App Service Plan: Multiple apps with shared resources',
+        'App Service Environment: Isolated and secure environment',
+        'Multi-Region: Global deployment with Traffic Manager'
+      ]
+    },
+    bestPractices: {
+      costOptimization: [
+        'Choose appropriate App Service Plan tier',
+        'Use auto-scaling for variable workloads',
+        'Implement proper staging slots',
+        'Optimize application performance',
+        'Use reserved instances for predictable workloads'
+      ],
+      security: [
+        'Enable HTTPS and SSL/TLS',
+        'Use Azure AD authentication',
+        'Implement proper CORS policies',
+        'Use managed identities for service connections',
+        'Enable security headers and web application firewall'
+      ],
+      performanceReliability: [
+        'Use appropriate tier for production',
+        'Implement caching strategies',
+        'Configure auto-scaling rules',
+        'Use deployment slots for zero-downtime updates',
+        'Implement proper error handling and logging'
+      ],
+      operationalExcellence: [
+        'Use CI/CD pipelines for deployment',
+        'Implement automated testing',
+        'Use Application Insights for monitoring',
+        'Implement backup and disaster recovery',
+        'Use infrastructure as code for deployment'
+      ]
+    },
+    failureScenarios: [
+      {
+        scenario: 'Application performance degradation',
+        whyItHappens: 'Resource constraints, inefficient code, database bottlenecks',
+        symptoms: 'Slow response times, HTTP errors, poor user experience',
+        impact: 'User dissatisfaction, business impact',
+        prevention: [
+          'Monitor performance metrics',
+          'Implement auto-scaling',
+          'Optimize application code',
+          'Use caching and CDN'
+        ]
+      }
+    ],
+    antiPatterns: [
+      {
+        pattern: 'Ignoring auto-scaling',
+        description: 'Using fixed scaling instead of auto-scaling',
+        consequences: 'Poor performance during traffic spikes, wasted resources'
+      }
+    ],
+    monitoringAlerts: {
+      metrics: ['Response Time', 'CPU/Memory Usage', 'Request Count', 'Error Rate'],
+      logs: ['Application logs', 'Web server logs', 'Error logs'],
+      alertThresholds: ['Response time > 2 seconds', 'Error rate > 5%', 'CPU > 80%'],
+      azureServices: ['Azure Monitor', 'Application Insights', 'Log Analytics']
+    },
+    checklist: {
+      security: ['✓ HTTPS enabled', '✓ Azure AD authentication configured'],
+      cost: ['✓ Appropriate tier selected', '✓ Auto-scaling configured'],
+      performance: ['✓ Caching implemented', '✓ Performance optimized'],
+      reliability: ['✓ Deployment slots configured', '✓ Backup enabled']
+    },
+    maturityLevels: [
+      {
+        level: 'Basic (Beginner)',
+        description: 'Basic App Service with default configuration',
+        setup: ['Create App Service', 'Deploy basic web application']
+      }
+    ]
   }
 ];
