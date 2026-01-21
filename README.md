@@ -4,7 +4,7 @@ An interactive demo application for Azure cloud architecture and best practices 
 
 ## Features
 
-- **9 Azure Services**: Storage Account, Virtual Machines, MySQL, Redis, Application Gateway, Service Bus, Functions, AKS, App Service
+- **13 Azure Services**: Storage Account, Virtual Machines, MySQL, Redis, Application Gateway, Service Bus, Functions, AKS, App Service, Azure SQL, Cosmos DB, Key Vault, Blob Storage
 - **9 Structured Sections**: Overview, Architecture, Best Practices, Failures, Anti-Patterns, Monitoring, Checklist, Maturity Levels
 - **Enterprise-Grade Content**: Real-world scenarios, cost optimization, security guidance
 - **Responsive Design**: Mobile and desktop optimized
@@ -34,6 +34,10 @@ npm run build
 7. **Azure Functions**  - Serverless event-driven compute
 8. **Azure Kubernetes Service (AKS)**  - Managed container orchestration
 9. **Azure App Service**  - Platform-as-a-service for web applications
+10. **Azure SQL Database**  - Enterprise-grade managed SQL database
+11. **Azure Cosmos DB**  - Globally distributed NoSQL database
+12. **Azure Key Vault**  - Secure secrets and key management
+13. **Azure Blob Storage**  - Scalable object storage for unstructured data
 
 ## Content Structure
 

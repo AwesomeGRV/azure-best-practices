@@ -985,5 +985,437 @@ export const azureServices: AzureService[] = [
         setup: ['Create App Service', 'Deploy basic web application']
       }
     ]
+  },
+  {
+    id: 'azure-sql',
+    name: 'Azure SQL Database',
+    icon: '🗄️',
+    overview: {
+      whatItIs: 'Azure SQL Database is a fully managed SQL database service that provides high performance, reliability, and security for cloud-based applications.',
+      whyUsed: 'Offers built-in intelligence, automated maintenance, and advanced security features while reducing administrative overhead.',
+      useCases: [
+        'Enterprise application backends',
+        'Transactional systems',
+        'Data warehousing and analytics',
+        'E-commerce platforms',
+        'Business intelligence applications'
+      ]
+    },
+    architecture: {
+      whenToUse: [
+        'When you need SQL Server compatibility',
+        'For enterprise-grade applications',
+        'When you require advanced security features',
+        'For applications needing high availability',
+        'When you want automated maintenance'
+      ],
+      whenNotToUse: [
+        'For NoSQL workloads (use Cosmos DB instead)',
+        'When you need open-source databases (use MySQL/PostgreSQL instead)',
+        'For simple key-value storage (use Redis instead)',
+        'When you need full server control (use SQL Server on VMs instead)'
+      ],
+      idealArchitectures: [
+        'Single Region: Standard/Premium tier with auto-failover',
+        'Multi-Region: Active geo-replication',
+        'High Availability: Zone-redundant configuration',
+        'Disaster Recovery: Auto-failover groups with cross-region replication'
+      ]
+    },
+    bestPractices: {
+      costOptimization: [
+        'Choose appropriate compute tier (General Purpose vs Business Critical)',
+        'Use serverless compute for intermittent workloads',
+        'Implement read replicas for read-heavy workloads',
+        'Optimize queries and indexing to reduce DTU usage',
+        'Use reserved capacity for predictable workloads'
+      ],
+      security: [
+        'Enable Azure AD authentication',
+        'Use private endpoints for network isolation',
+        'Enable Transparent Data Encryption (TDE)',
+        'Implement row-level security',
+        'Regularly audit with Azure SQL Auditing'
+      ],
+      performanceReliability: [
+        'Use Premium SSD storage for high-performance workloads',
+        'Implement proper indexing strategies',
+        'Use Query Performance Insights',
+        'Configure appropriate service tier objectives',
+        'Implement connection pooling'
+      ],
+      operationalExcellence: [
+        'Enable automated backups and point-in-time restore',
+        'Use Azure Monitor for performance monitoring',
+        'Implement automated maintenance windows',
+        'Use Azure Resource Manager templates for deployment',
+        'Implement comprehensive logging and alerting'
+      ]
+    },
+    failureScenarios: [
+      {
+        scenario: 'Database performance degradation',
+        whyItHappens: 'Poor query optimization, insufficient resources, blocking transactions',
+        symptoms: 'Slow query responses, application timeouts, high CPU usage',
+        impact: 'Poor user experience, business disruption',
+        realExample: 'A financial trading platform experienced SQL timeout issues during market hours, causing 30-second delays in trade executions and $2M in lost trading volume',
+        prevention: [
+          'Regular query performance analysis',
+          'Implement proper indexing',
+          'Monitor resource utilization',
+          'Use appropriate service tiers'
+        ]
+      }
+    ],
+    antiPatterns: [
+      {
+        pattern: 'Over-provisioning DTUs/vCores',
+        description: 'Using higher service tiers than necessary',
+        consequences: 'Unnecessary costs, wasted resources'
+      }
+    ],
+    monitoringAlerts: {
+      metrics: ['CPU Percentage', 'DTU Percentage', 'Storage Usage', 'Connections'],
+      logs: ['SQL Audit logs', 'Query Store logs', 'Error logs'],
+      alertThresholds: ['CPU > 80%', 'DTU > 85%', 'Storage > 90%'],
+      azureServices: ['Azure Monitor', 'Log Analytics', 'Query Performance Insight']
+    },
+    checklist: {
+      security: ['✓ Azure AD authentication enabled', '✓ TDE configured'],
+      cost: ['✓ Appropriate service tier selected', '✓ Serverless considered'],
+      performance: ['✓ Proper indexing implemented', '✓ Query optimization done'],
+      reliability: ['✓ Automated backups enabled', '✓ High availability configured']
+    },
+    maturityLevels: [
+      {
+        level: 'Basic (Beginner)',
+        description: 'Single database with basic configuration',
+        setup: ['Create SQL Database with default settings', 'Enable basic monitoring']
+      }
+    ]
+  },
+  {
+    id: 'cosmos-db',
+    name: 'Azure Cosmos DB',
+    icon: '🌌',
+    overview: {
+      whatItIs: 'Azure Cosmos DB is a fully managed NoSQL database service that provides high availability, global distribution, and multi-model capabilities.',
+      whyUsed: 'Offers low-latency access to data anywhere in the world with automatic indexing and multiple API support.',
+      useCases: [
+        'Global applications requiring low latency',
+        'IoT data processing and storage',
+        'Real-time gaming and user profiles',
+        'Mobile applications with offline sync',
+        'Content management systems'
+      ]
+    },
+    architecture: {
+      whenToUse: [
+        'For globally distributed applications',
+        'When you need multi-region replication',
+        'For applications requiring multiple APIs',
+        'When you need flexible schema design',
+        'For high-throughput workloads'
+      ],
+      whenNotToUse: [
+        'For relational data with complex joins (use Azure SQL instead)',
+        'When you need ACID transactions across collections',
+        'For simple key-value storage (use Redis instead)',
+        'When you need SQL Server specific features'
+      ],
+      idealArchitectures: [
+        'Single Region: Standard throughput with automatic indexing',
+        'Multi-Region: Global distribution with multi-master',
+        'High Availability: Multi-region writes with conflict resolution',
+        'Disaster Recovery: Automatic failover with consistency levels'
+      ]
+    },
+    bestPractices: {
+      costOptimization: [
+        'Choose appropriate consistency level',
+        'Use provisioned throughput for predictable workloads',
+        'Implement proper partitioning strategy',
+        'Use time-to-live (TTL) for data expiration',
+        'Optimize query patterns and indexing'
+      ],
+      security: [
+        'Enable Azure AD authentication',
+        'Use private endpoints for network isolation',
+        'Implement firewall rules',
+        'Use customer-managed keys for encryption',
+        'Regularly audit access patterns'
+      ],
+      performanceReliability: [
+        'Use appropriate consistency levels',
+        'Implement proper partitioning',
+        'Use multi-region writes for global applications',
+        'Optimize query patterns',
+        'Use SDK with connection pooling'
+      ],
+      operationalExcellence: [
+        'Enable continuous backups',
+        'Use Azure Monitor for performance monitoring',
+        'Implement automated testing of data consistency',
+        'Use infrastructure as code for deployment',
+        'Implement proper logging and alerting'
+      ]
+    },
+    failureScenarios: [
+      {
+        scenario: 'Throughput exhaustion',
+        whyItHappens: 'Insufficient RU allocation, hot partition issues, inefficient queries',
+        symptoms: 'HTTP 429 errors, request throttling, poor performance',
+        impact: 'Application failures, poor user experience',
+        realExample: 'A gaming startup experienced 429 errors during a viral campaign, causing 50,000 new users to be unable to create accounts and 80% drop-off rate',
+        prevention: [
+          'Monitor RU consumption',
+          'Implement proper partitioning',
+          'Use appropriate consistency levels',
+          'Set up auto-scaling for throughput'
+        ]
+      }
+    ],
+    antiPatterns: [
+      {
+        pattern: 'Using strong consistency globally',
+        description: 'Using strong consistency across all regions',
+        consequences: 'High latency, poor performance, increased costs'
+      }
+    ],
+    monitoringAlerts: {
+      metrics: ['Request Units', 'Latency', 'Availability', 'Throttled Requests'],
+      logs: ['Diagnostic logs', 'Control plane logs', 'Metrics logs'],
+      alertThresholds: ['RU consumption > 80%', 'Latency > 100ms', 'Throttled requests > 5%'],
+      azureServices: ['Azure Monitor', 'Log Analytics', 'Cosmos DB metrics']
+    },
+    checklist: {
+      security: ['✓ Azure AD authentication enabled', '✓ Firewall configured'],
+      cost: ['✓ Appropriate throughput provisioned', '✓ TTL configured'],
+      performance: ['✓ Proper partitioning implemented', '✓ Appropriate consistency level'],
+      reliability: ['✓ Multi-region replication enabled', '✓ Backup configured']
+    },
+    maturityLevels: [
+      {
+        level: 'Basic (Beginner)',
+        description: 'Single container with default settings',
+        setup: ['Create Cosmos DB account', 'Configure basic container']
+      }
+    ]
+  },
+  {
+    id: 'key-vault',
+    name: 'Azure Key Vault',
+    icon: '🔐',
+    overview: {
+      whatItIs: 'Azure Key Vault is a cloud service for securely storing and accessing secrets, keys, and certificates.',
+      whyUsed: 'Provides centralized secret management with enhanced security, access control, and auditing capabilities.',
+      useCases: [
+        'Application secrets management',
+        'Encryption key storage and management',
+        'Certificate lifecycle management',
+        'Password and credential storage',
+        'Compliance and audit requirements'
+      ]
+    },
+    architecture: {
+      whenToUse: [
+        'For centralized secret management',
+        'When you need encryption key management',
+        'For applications requiring certificates',
+        'When compliance requires secret rotation',
+        'For multi-application secret sharing'
+      ],
+      whenNotToUse: [
+        'For simple configuration values (use App Configuration instead)',
+        'For non-secret data storage',
+        'When you need database secrets (use Managed Identities instead)',
+        'For file-based secrets management'
+      ],
+      idealArchitectures: [
+        'Single Region: Standard vault with RBAC',
+        'Multi-Region: Geo-redundant vaults',
+        'High Availability: Soft delete and purge protection',
+        'Disaster Recovery: Backup and restore capabilities'
+      ]
+    },
+    bestPractices: {
+      costOptimization: [
+        'Use appropriate SKU (Standard vs Premium)',
+        'Implement secret rotation policies',
+        'Use managed identities when possible',
+        'Optimize API call patterns',
+        'Regular cleanup of expired secrets'
+      ],
+      security: [
+        'Enable Azure AD authentication',
+        'Implement least privilege access',
+        'Use private endpoints for network isolation',
+        'Enable soft delete and purge protection',
+        'Regularly audit access patterns'
+      ],
+      performanceReliability: [
+        'Use caching for frequently accessed secrets',
+        'Implement proper connection pooling',
+        'Use appropriate retry policies',
+        'Monitor API rate limits',
+        'Implement proper error handling'
+      ],
+      operationalExcellence: [
+        'Enable diagnostic logging',
+        'Use Azure Resource Manager templates',
+        'Implement automated secret rotation',
+        'Set up monitoring and alerts',
+        'Use infrastructure as code for deployment'
+      ]
+    },
+    failureScenarios: [
+      {
+        scenario: 'Secret access failures',
+        whyItHappens: 'Permission issues, network connectivity, API rate limiting',
+        symptoms: 'Application startup failures, authentication errors',
+        impact: 'Service downtime, security risks',
+        realExample: 'A microservices application failed to start during deployment due to missing Key Vault permissions, causing 4 hours of service outage and emergency access grants',
+        prevention: [
+          'Implement proper RBAC permissions',
+          'Use managed identities when possible',
+          'Monitor access patterns',
+          'Implement proper error handling'
+        ]
+      }
+    ],
+    antiPatterns: [
+      {
+        pattern: 'Storing secrets in application code',
+        description: 'Hardcoding secrets in source code or configuration files',
+        consequences: 'Security risks, credential exposure, compliance violations'
+      }
+    ],
+    monitoringAlerts: {
+      metrics: ['API Calls', 'Latency', 'Availability', 'Error Rate'],
+      logs: ['Audit logs', 'Access logs', 'Diagnostic logs'],
+      alertThresholds: ['Error rate > 1%', 'Latency > 1000ms', 'Failed access attempts'],
+      azureServices: ['Azure Monitor', 'Log Analytics', 'Key Vault diagnostics']
+    },
+    checklist: {
+      security: ['✓ Azure AD authentication enabled', '✓ RBAC configured'],
+      cost: ['✓ Appropriate SKU selected', '✓ Secret rotation configured'],
+      performance: ['✓ Caching implemented', '✓ Connection pooling configured'],
+      reliability: ['✓ Soft delete enabled', '✓ Backup configured']
+    },
+    maturityLevels: [
+      {
+        level: 'Basic (Beginner)',
+        description: 'Basic vault with default settings',
+        setup: ['Create Key Vault', 'Configure basic access policies']
+      }
+    ]
+  },
+  {
+    id: 'blob-storage',
+    name: 'Azure Blob Storage',
+    icon: '📦',
+    overview: {
+      whatItIs: 'Azure Blob Storage is Microsoft\'s object storage solution for the cloud, optimized for storing massive amounts of unstructured data.',
+      whyUsed: 'Provides scalable, durable, and cost-effective storage with multiple access tiers and lifecycle management.',
+      useCases: [
+        'Static website hosting',
+        'Backup and disaster recovery',
+        'Media and content storage',
+        'Big data analytics',
+        'Archive storage'
+      ]
+    },
+    architecture: {
+      whenToUse: [
+        'For unstructured data storage',
+        'When you need massive scalability',
+        'For static content serving',
+        'When you need different access tiers',
+        'For backup and archival purposes'
+      ],
+      whenNotToUse: [
+        'For structured relational data (use SQL databases instead)',
+        'For frequently changing small files (use File Storage instead)',
+        'When you need file system semantics',
+        'For real-time transaction processing'
+      ],
+      idealArchitectures: [
+        'Single Region: Standard storage with LRS',
+        'Multi-Region: Geo-redundant storage with GRS',
+        'High Availability: Zone-redundant storage (ZRS)',
+        'Disaster Recovery: Geo-zone-redundant storage (GZRS)'
+      ]
+    },
+    bestPractices: {
+      costOptimization: [
+        'Use appropriate access tiers (Hot, Cool, Cold, Archive)',
+        'Implement lifecycle management policies',
+        'Enable storage analytics to monitor usage',
+        'Use Azure CDN for content delivery',
+        'Consider reserved capacity for predictable workloads'
+      ],
+      security: [
+        'Enable Azure AD-based authorization',
+        'Use private endpoints instead of public endpoints',
+        'Enable encryption at rest and in transit',
+        'Implement network rules and firewalls',
+        'Use managed identities for application access'
+      ],
+      performanceReliability: [
+        'Choose appropriate performance tier',
+        'Enable soft delete for data protection',
+        'Configure appropriate replication options',
+        'Use CDN for content distribution',
+        'Implement proper partitioning strategy'
+      ],
+      operationalExcellence: [
+        'Enable diagnostic logging',
+        'Implement automated backup strategies',
+        'Use Azure Resource Manager templates',
+        'Monitor storage metrics and alerts',
+        'Implement proper tagging for cost management'
+      ]
+    },
+    failureScenarios: [
+      {
+        scenario: 'Storage account throttling',
+        whyItHappens: 'Exceeding scalability limits, high request rates, network congestion',
+        symptoms: 'HTTP 503 errors, slow uploads, access failures',
+        impact: 'Application downtime, poor user experience',
+        realExample: 'A video streaming platform experienced 503 errors during a live event, causing 2 hours of upload failures and 100,000 viewers unable to access content',
+        prevention: [
+          'Monitor request rates',
+          'Implement proper retry policies',
+          'Use CDN for content distribution',
+          'Partition data across multiple accounts'
+        ]
+      }
+    ],
+    antiPatterns: [
+      {
+        pattern: 'Using Blob Storage as a database',
+        description: 'Treating blob storage like a relational database with complex queries',
+        consequences: 'Poor performance, high costs, complex application logic'
+      }
+    ],
+    monitoringAlerts: {
+      metrics: ['Ingress/Egress bandwidth', 'Transaction count', 'Availability percentage'],
+      logs: ['Storage Analytics logs', 'Activity logs'],
+      alertThresholds: ['Availability < 99.9%', 'Error rate > 1%', 'Throttling detected'],
+      azureServices: ['Azure Monitor', 'Log Analytics', 'Storage Analytics']
+    },
+    checklist: {
+      security: ['✓ Azure AD authentication enabled', '✓ Private endpoints configured'],
+      cost: ['✓ Appropriate access tier selected', '✓ Lifecycle policies configured'],
+      performance: ['✓ CDN configured', '✓ Proper replication selected'],
+      reliability: ['✓ Soft delete enabled', '✓ Backup configured']
+    },
+    maturityLevels: [
+      {
+        level: 'Basic (Beginner)',
+        description: 'Basic storage account with default settings',
+        setup: ['Create storage account', 'Configure basic containers']
+      }
+    ]
   }
 ];
